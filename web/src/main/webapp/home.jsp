@@ -18,6 +18,11 @@
 <h2>Hi ${username} ${surname}, You are welcome!</h2>
 <h3>Your registered email is ${email}</h3>
 <h2>
+    <c:if test="${roles.contains('ROLE_ADMIN')}">
+        <a href="/users">List Users</a>
+    </c:if>
+</h2>
+<h2>
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

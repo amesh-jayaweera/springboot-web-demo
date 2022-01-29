@@ -27,12 +27,12 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        if(!roleRepository.existsByName(ERole.ADMIN)) {
-            roleRepository.save(new Role(ERole.ADMIN));
+        if(!roleRepository.existsByName(ERole.ROLE_USER)) {
+            roleRepository.save(new Role(ERole.ROLE_USER));
         }
 
-        if(!roleRepository.existsByName(ERole.USER)) {
-            roleRepository.save(new Role(ERole.USER));
+        if(!roleRepository.existsByName(ERole.ROLE_ADMIN)) {
+            roleRepository.save(new Role(ERole.ROLE_ADMIN));
         }
 
         String firstName = "Harry";
@@ -42,7 +42,7 @@ public class DataLoader implements ApplicationRunner {
             String adminPassword = "Test123#";
             User user = new User(firstName, surname, adminEmail, passwordEncoder.encode(adminPassword));
             Set<Role> roles = new HashSet<>();
-            Role userRole = roleRepository.findByName(ERole.ADMIN)
+            Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
             user.setRoles(roles);

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		HashSet<Role> roles = new HashSet<>();
-		Optional<Role> roleOptional = roleRepository.findByName(ERole.USER);
+		Optional<Role> roleOptional = roleRepository.findByName(ERole.ROLE_USER);
 		roleOptional.ifPresent(roles::add);
 		user.setRoles(roles);
 		userRepository.save(user);
