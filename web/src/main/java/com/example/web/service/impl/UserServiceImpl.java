@@ -1,5 +1,6 @@
 package com.example.web.service.impl;
 
+import com.example.web.dto.UserDTO;
 import com.example.web.entity.Role;
 import com.example.web.entity.User;
 import com.example.web.repository.RoleRepository;
@@ -11,8 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,5 +32,16 @@ public class UserServiceImpl implements UserService {
 		roleOptional.ifPresent(roles::add);
 		user.setRoles(roles);
 		userRepository.save(user);
+	}
+
+	@Override
+	public List<UserDTO> getAllUsers() {
+		List<User> users = userRepository.findAll();
+		List<UserDTO> userDTOS = new ArrayList<>();
+		for(User user : users) {
+			UserDTO newUser = new UserDTO(user.getEmail(), user.getFirstName(), user.getSurname());
+			userDTOS.add(newUser);
+		}
+		return userDTOS;
 	}
 }

@@ -1,8 +1,10 @@
 package com.example.web.controller;
 
+import com.example.web.dto.UserDTO;
 import com.example.web.entity.User;
 import com.example.web.repository.UserRepository;
 import com.example.web.service.SecurityService;
+import com.example.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +25,8 @@ public class HomeController {
 	private SecurityService securityService;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping(value = {"/","/home"})
 	public String homePage(Model model) {
@@ -43,8 +47,10 @@ public class HomeController {
 	}
 
 	@GetMapping(value = {"/users"})
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String usersPage(Model model) {
+		List<UserDTO> userDTOS = userService.getAllUsers();
+		model.addAttribute("users", userDTOS);
 		return "users";
 	}
 }
