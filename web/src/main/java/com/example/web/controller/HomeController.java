@@ -21,7 +21,11 @@ public class HomeController {
 	@GetMapping(value = {"/","/home"})
 	public String homePage(Model model) {
 		Optional<User> userOptional = userRepository.findUserByEmail(securityService.findLoggedInUsername());
-		userOptional.ifPresent(user -> model.addAttribute("username", user.getFirstName()));
+		userOptional.ifPresent(user -> {
+			model.addAttribute("username", user.getFirstName());
+			model.addAttribute("surname", user.getSurname());
+			model.addAttribute("email", user.getEmail());
+		});
 		return "home";
 	}
 }
