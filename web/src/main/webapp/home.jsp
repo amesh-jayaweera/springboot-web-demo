@@ -18,7 +18,7 @@
 <h2>Hi ${username} ${surname}, You are welcome!</h2>
 <h3>Your registered email is ${email}</h3>
 <h2>
-    <c:if test="${roles.contains('ROLE_ADMIN')}">
+    <c:if test="${roles.contains('ADMIN')}">
         <a href="/users">List Users</a>
     </c:if>
 </h2>

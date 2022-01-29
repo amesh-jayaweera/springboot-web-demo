@@ -6,7 +6,6 @@ import com.example.web.entity.User;
 import com.example.web.repository.RoleRepository;
 import com.example.web.repository.UserRepository;
 import com.example.web.service.UserService;
-import com.example.web.util.ERole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		HashSet<Role> roles = new HashSet<>();
-		Optional<Role> roleOptional = roleRepository.findByName(ERole.ROLE_USER);
+		Optional<Role> roleOptional = roleRepository.findByName("USER");
 		roleOptional.ifPresent(roles::add);
 		user.setRoles(roles);
 		userRepository.save(user);

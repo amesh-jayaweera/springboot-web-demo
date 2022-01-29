@@ -47,7 +47,6 @@ public class HomeController {
 	}
 
 	@GetMapping(value = {"/users"})
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String usersPage(Model model) {
 		List<UserDTO> userDTOS = userService.getAllUsers();
 		model.addAttribute("users", userDTOS);

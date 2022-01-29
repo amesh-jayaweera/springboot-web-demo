@@ -1,6 +1,5 @@
 package com.example.web.entity;
 
-import com.example.web.util.ERole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,9 +19,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name="name", nullable = false)
-    private ERole name;
+    private String name;
 
     @ManyToMany(
             mappedBy = "roles",
@@ -35,7 +33,7 @@ public class Role {
     public Role() {
     }
 
-    public Role(ERole name) {
+    public Role(String name) {
         this.name = name;
     }
 }

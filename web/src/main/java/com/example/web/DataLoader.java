@@ -4,7 +4,6 @@ import com.example.web.entity.Role;
 import com.example.web.entity.User;
 import com.example.web.repository.RoleRepository;
 import com.example.web.repository.UserRepository;
-import com.example.web.util.ERole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,22 +26,36 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        if(!roleRepository.existsByName(ERole.ROLE_USER)) {
-            roleRepository.save(new Role(ERole.ROLE_USER));
+        if(!roleRepository.existsByName("USER")) {
+            roleRepository.save(new Role("USER"));
         }
 
-        if(!roleRepository.existsByName(ERole.ROLE_ADMIN)) {
-            roleRepository.save(new Role(ERole.ROLE_ADMIN));
+        if(!roleRepository.existsByName("ADMIN")) {
+            roleRepository.save(new Role("ADMIN"));
         }
 
         String firstName = "Harry";
         String surname = "Potter";
-        String adminEmail = "admin@gmail.com";
-        if(!userRepository.existsByEmail(adminEmail)) {
-            String adminPassword = "Test123#";
-            User user = new User(firstName, surname, adminEmail, passwordEncoder.encode(adminPassword));
+        String email = "admin@gmail.com";
+        String password = "Test123#";
+        if(!userRepository.existsByEmail(email)) {
+            User user = new User(firstName, surname, email, passwordEncoder.encode(password));
             Set<Role> roles = new HashSet<>();
-            Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+            Role userRole = roleRepository.findByName("ADMIN")
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
+
+        firstName = "Amesh";
+        surname = "Jayaweera";
+        email = "ameshmbjyw97@gmail.com";
+        if(!userRepository.existsByEmail(email)) {
+            String adminPassword = "Test123#";
+            User user = new User(firstName, surname, email, passwordEncoder.encode(adminPassword));
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName("USER")
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
             user.setRoles(roles);
