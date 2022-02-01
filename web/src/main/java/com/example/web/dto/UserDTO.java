@@ -1,16 +1,9 @@
 package com.example.web.dto;
 
-import com.example.web.entity.Role;
-
-import java.util.Set;
-
 public class UserDTO {
     private String email;
     private String firstName;
     private String surname;
-
-    public UserDTO() {
-    }
 
     public UserDTO(String email, String firstName, String surname) {
         this.email = email;

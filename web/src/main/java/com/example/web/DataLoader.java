@@ -4,7 +4,6 @@ import com.example.web.entity.Role;
 import com.example.web.entity.User;
 import com.example.web.repository.RoleRepository;
 import com.example.web.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,11 +16,14 @@ import java.util.Set;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public DataLoader(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) {

@@ -6,7 +6,6 @@ import com.example.web.repository.UserRepository;
 import com.example.web.service.SecurityService;
 import com.example.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
